@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paste to TXT Downloader</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px;
+            background-color: #f4f4f9;
+        }
+        textarea {
+            width: 80%;
+            height: 300px;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Paste Text Below</h2>
+    <textarea id="textInput" placeholder="Type or paste your content here..."></textarea>
+    <br>
+    <button onclick="downloadTxt()">Download as .txt</button>
+
+    <script>
+        function downloadTxt() {
+            // 1. Get the text from the textarea
+            const textContent = document.getElementById('textInput').value;
+            
+            // 2. Create a Blob (Binary Large Object) containing the text
+            const blob = new Blob([textContent], { type: 'text/plain' });
+            
+            // 3. Create a temporary anchor element
+            const link = document.createElement('a');
+            
+            // 4. Set the download attribute and the URL
+            link.download = 'my-download.txt';
+            link.href = window.URL.createObjectURL(blob);
+            
+            // 5. Trigger the click and remove the link
+            link.click();
+            window.URL.revokeObjectURL(link.href);
+        }
+    </script>
+
+</body>
+</html>
